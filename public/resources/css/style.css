@@ -63,6 +63,8 @@ html {
     overflow: auto;
     padding: 0 1rem;
     width: 150px;
+    position: absolute;
+    right: 0;
 
 
 }

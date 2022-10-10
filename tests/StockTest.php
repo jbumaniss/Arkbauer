@@ -7,8 +7,8 @@ use Src\Models\Product;
 use Src\Services\DestroyServiceRequest;
 use Src\Services\MoneyServiceRequest;
 use Src\Services\Stock\StockService;
-use Src\Services\Stock\StoreProductServiceRequest;
-use Src\Services\Stock\UpdateProductRequest;
+use Src\Services\Stock\StoreServiceRequest;
+use Src\Services\Stock\UpdateServiceRequest;
 
 class StockTest extends TestCase
 {
@@ -24,7 +24,7 @@ class StockTest extends TestCase
     {
         $stockService = new StockService();
         $result = $stockService
-            ->addProduct(new StoreProductServiceRequest(
+            ->addProduct(new StoreServiceRequest(
                 'printer','google.com/image',   213, new MoneyServiceRequest(999.9, 21.1), 21.1,'lorem ipsum'
             ));
         $this->assertInstanceOf(StockService::class, $result);
@@ -44,7 +44,7 @@ class StockTest extends TestCase
     {
         $stockService = new StockService();
         $result = $stockService
-            ->updateProduct(new UpdateProductRequest(
+            ->updateProduct(new UpdateServiceRequest(
                 99, 'printer', 213,  new MoneyServiceRequest(999.9, 21.1),21.1, 0,'lorem ipsum'
             ));
         $this->assertInstanceOf(StockService::class, $result);

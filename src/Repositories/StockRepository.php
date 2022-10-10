@@ -10,7 +10,7 @@ namespace Src\Repositories;
 use Src\Interfaces\ProductInterface;
 use Src\Models\Product;
 use Src\Services\MoneyServiceRequest;
-use Src\Services\Stock\UpdateProductRequest;
+use Src\Services\Stock\UpdateServiceRequest;
 
 class StockRepository extends Database
 {
@@ -67,7 +67,7 @@ class StockRepository extends Database
 
 
 
-    public function updateProduct(UpdateProductRequest $updateProductRequest)
+    public function updateProduct(UpdateServiceRequest $updateProductRequest)
     {
         $sql = "UPDATE products SET name=?, available=?, description=?   WHERE id=?";
         $stmt = $this->connect()->prepare($sql);

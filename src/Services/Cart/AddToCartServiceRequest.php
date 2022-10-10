@@ -7,7 +7,7 @@ namespace Src\Services\Cart;
 use Src\Interfaces\MoneyInterface;
 use Src\Interfaces\ProductInterface;
 
-class AddCartProductServiceRequest implements ProductInterface
+class AddToCartServiceRequest implements ProductInterface
 {
 
     private int $id;

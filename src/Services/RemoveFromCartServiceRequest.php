@@ -4,7 +4,7 @@ namespace Src\Services;
 
 use Src\Interfaces\MoneyInterface;
 
-class RemoveCartProductServiceRequest implements \Src\Interfaces\ProductInterface
+class RemoveFromCartServiceRequest implements \Src\Interfaces\ProductInterface
 {
 
     private int $id;

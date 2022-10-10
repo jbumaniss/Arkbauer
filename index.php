@@ -11,6 +11,9 @@ use Src\Controllers\StockController;
 use Src\Controllers\VueController;
 use Src\Router\Router;
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 
 $router = new Router();
 $router->get('/' , VueController::class . '::index');

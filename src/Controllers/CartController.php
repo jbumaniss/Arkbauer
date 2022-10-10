@@ -6,13 +6,13 @@ namespace Src\Controllers;
 
 
 
-use Src\Services\Cart\AddCartProductServiceRequest;
+use Src\Services\Cart\AddToCartServiceRequest;
 use Src\Services\Cart\CartService;
 use Src\Services\Cart\CartServiceRequest;
 use Src\Services\Cart\CartServiceRequestCollection;
 use Src\Services\DestroyServiceRequest;
 use Src\Services\MoneyServiceRequest;
-use Src\Services\RemoveCartProductServiceRequest;
+use Src\Services\RemoveFromCartServiceRequest;
 
 
 class CartController
@@ -55,7 +55,7 @@ class CartController
         $product = json_decode(file_get_contents("php://input"));
 
         $this->cartService->addProduct(
-            new AddCartProductServiceRequest(
+            new AddToCartServiceRequest(
                 $product->id,
                 $product->name,
                 $product->available,
@@ -71,7 +71,7 @@ class CartController
         $product = json_decode(file_get_contents("php://input"));
 
         $this->cartService->removeProduct(
-            new RemoveCartProductServiceRequest(
+            new RemoveFromCartServiceRequest(
                 $product->id,
                 $product->name,
                 $product->available,

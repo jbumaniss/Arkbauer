@@ -5,7 +5,7 @@ namespace Src\Services\Stock;
 use Src\Interfaces\MoneyInterface;
 use Src\Interfaces\ProductInterface;
 
-class StoreProductServiceRequest implements ProductInterface
+class StoreServiceRequest implements ProductInterface
 {
 
 

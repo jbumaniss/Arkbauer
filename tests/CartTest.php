@@ -5,10 +5,10 @@ namespace Tests;
 
 
 use PHPUnit\Framework\TestCase;
-use Src\Services\Cart\AddCartProductServiceRequest;
+use Src\Services\Cart\AddToCartServiceRequest;
 use Src\Services\Cart\CartService;
 use Src\Services\MoneyServiceRequest;
-use Src\Services\RemoveCartProductServiceRequest;
+use Src\Services\RemoveFromCartServiceRequest;
 
 class CartTest extends TestCase
 {
@@ -25,7 +25,7 @@ class CartTest extends TestCase
     {
         $stockService = new CartService();
         $result = $stockService
-            ->addProduct(new AddCartProductServiceRequest(
+            ->addProduct(new AddToCartServiceRequest(
                 '99', 'printer', 'google.com/image', 213, new MoneyServiceRequest(999.9, 21.1), 213,'lorem ipsum', 0
             ));
 
@@ -36,7 +36,7 @@ class CartTest extends TestCase
     {
         $stockService = new CartService();
         $result = $stockService
-            ->removeProduct(new RemoveCartProductServiceRequest(
+            ->removeProduct(new RemoveFromCartServiceRequest(
                 '99', 'printer', 'google.com/image', 21.1, new MoneyServiceRequest(999.9, 21.1), 213,'lorem ipsum', 0, '2022-22-31','2022-22-31'
             ));
 

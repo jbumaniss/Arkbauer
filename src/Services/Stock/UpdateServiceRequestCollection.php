@@ -14,7 +14,7 @@ class UpdateServiceRequestCollection
 
     }
 
-    public function addProduct(UpdateProductRequest $product): void
+    public function addProduct(UpdateServiceRequest $product): void
     {
         $this->products[] = $product;
     }

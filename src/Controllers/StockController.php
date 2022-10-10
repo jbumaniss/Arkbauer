@@ -7,8 +7,8 @@ namespace Src\Controllers;
 use Src\Services\DestroyServiceRequest;
 use Src\Services\MoneyServiceRequest;
 use Src\Services\Stock\StockService;
-use Src\Services\Stock\StoreProductServiceRequest;
-use Src\Services\Stock\UpdateProductRequest;
+use Src\Services\Stock\StoreServiceRequest;
+use Src\Services\Stock\UpdateServiceRequest;
 
 class StockController
 {
@@ -53,7 +53,7 @@ class StockController
         $product = json_decode(file_get_contents("php://input"));
 
         $this->stockService->addProduct(
-            new StoreProductServiceRequest(
+            new StoreServiceRequest(
                 $product->productName,
                 $product->productImage,
                 $product->productAvailable,
@@ -68,7 +68,7 @@ class StockController
     {
         $product = json_decode(file_get_contents("php://input"));
 
-        $product = new UpdateProductRequest(
+        $product = new UpdateServiceRequest(
             $product->id,
             $product->name,
             $product->available,
