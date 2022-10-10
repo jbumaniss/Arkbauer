@@ -25,7 +25,6 @@ class CartController
 
     }
 
-
     public function show(): void
     {
         $productsArray = $this->cartService->getProducts();
@@ -47,13 +46,11 @@ class CartController
 
         }
         echo json_encode($products);
-
     }
 
     public function add(): void
     {
         $product = json_decode(file_get_contents("php://input"));
-
         $this->cartService->addProduct(
             new AddToCartServiceRequest(
                 $product->id,
@@ -117,10 +114,10 @@ class CartController
 
     public function buy():void
     {
-        $dataArr = json_decode(file_get_contents("php://input"));
+        $productInput = json_decode(file_get_contents("php://input"));
         $products = [];
 
-        foreach ($dataArr as $product){
+        foreach ($productInput as $product){
 
             $products[] = new CartServiceRequest(
                 $product->id,
@@ -131,10 +128,7 @@ class CartController
                 $product->quantity
             );
         }
-
         $cartProductsCollection = new CartServiceRequestCollection($products);
         $this->cartService->buy($cartProductsCollection);
-
     }
-
 }

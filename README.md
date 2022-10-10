@@ -3,10 +3,9 @@
 
 ### E-commerce cart
 
-### Created with PHP 8.0/Vue.js/Axios/PHPUnit
+### Created app with PHP 8.0 / MySql 8.0 /Vue.js 3.x/Axios 1.1.2/ Font Awesome 6.20 /PHPUnit 9.5 /PHPDotEnv 5.4
 
 ### Create Remove Update Delete, Cart App
-
 
 
 -----
@@ -37,15 +36,17 @@
 
 #### 1. Clone this git repository or download to your chosen directory
 
-#### 2 . Create database in your mysql and import from arkbauer.sql in root folder to your mysql created database.
+#### 2. Create database in your mysql and import from arkbauer.sql in root folder to your mysql created database.
 
-#### 3.  Edit mysql database detail fields in file src/config/config.php:
-##### a. $username;
-##### b. $password;
-##### c. $host;
-##### d. $databaseName;
+#### 3. Copy and rename .env.example in root directory to root directory as .env file.
 
-#### 3. Run command to install required packages
+#### 4.  Edit MySql database detail fields in file root directory .env:
+##### a. USERNAME="fill with your username";
+##### b. PASSWORD="fill with your password";
+##### c. HOST="fill with your host name";
+##### d. DATABASE_NAME="fill with your database name";
+
+#### 3. Run command in command terminal from folder in which you installed the app,  install required packages with command: 
 
 ~~~~
 
@@ -53,7 +54,7 @@ composer install
 
 ~~~~
 
-### 5. Run with command
+### 5. Run dev server with command:
 
 ~~~~
 
