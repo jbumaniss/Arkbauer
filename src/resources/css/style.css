@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 10px;
+}
+
+.nav {
+    align-items: center;
+    background: grey;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+}
+.navHeader {
+    font-size: 2.5rem;
+}
+.navCart {
+    position: relative;
+}
+.navCart .navButton {
+    background: none;
+    border: 0;
+    color: white;
+    cursor: pointer;
+}
+.navCart .iCart {
+    font-size: 2rem;
+}
+
+.iCart:hover {
+    font-size: 2.5rem;
+}
+
+.navCart .totalQuantity {
+    align-items: center;
+    background: lightblue;
+    border-radius: 50%;
+    font-weight: bold;
+    height: 2rem;
+    justify-content: center;
+    padding: 0.5rem;
+    right: -10px;
+    top: -10px;
+    width: 2rem;
+}
+.navCart .cartDropdown {
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    color: #333;
+    font-size: 1.3rem;
+    overflow: auto;
+    padding: 0 1rem;
+    width: 150px;
+
+
+}
+.navCart .cartDropdown .cartDropdownList {
+    list-style: none;
+}
+.navCart .cartDropdown .cartDropdownList li {
+    margin: 1rem 0;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.products .product {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    margin: 2rem;
+    padding: 1rem;
+}
+.products .productHeader {
+    font-size: 2rem;
+    text-align: center;
+}
+.products .productImage {
+    display: block;
+    margin: 1rem auto;
+
+}
+
+.productImage {
+    display: block;
+    margin: 1rem auto;
+    max-width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.products .productDescription {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+}
+
+.cart {
+    margin-top: 2rem;
+    text-align: center;
+}
+.cartButton {
+    background: lightblue;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+.cartQuantity {
+    font-size: 1.5rem;
+    margin: 0 1rem;
+}
+
+.cartBuyButton {
+    background: lightblue;
+    color: white;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-style: italic;
+    padding: 10px;
+    padding-right: 14px;
+    padding-left: 12px;
+    margin: 5px;
+
+
+}
+
+.cartBuyButton:hover {
+    background-color: lightblue;
+    color: cornflowerblue;
+    border: 1px solid  lightblue;
+    font-weight: bold;
+
+}
+
+.iBuy {
+    font-size: 1rem;
+    color: red;
+}
+
+.iBuy:hover {
+    font-size: 1.4rem;
+    color: red;
+    cursor: pointer;
+}
+
+.iPlus {
+    font-size: 3rem;
+    color: white;
+}
+
+.iPlus:hover {
+    font-size: 3.5rem;
+    cursor: pointer;
+}
+
+.showProductDropdown {
+
+    list-style: none;
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    color: #333;
+    font-size: 1.3rem;
+    overflow: auto;
+    padding: 0 1rem;
+    right: 0;
+    position: absolute;
+
+
+
+    margin: auto;
+    width: 600px;
+    height: 400px;
+
+
+
+}
+
+
+.container {
+    max-width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.table {
+    width: 100%;
+    border: 1px solid #eeeeee;
+}
+
+.table-header {
+    display: flex;
+    width: 100%;
+    background: grey;
+    padding: 18px 0;
+    border-radius: 5px;
+}
+
+.table-row {
+    display: flex;
+    width: 100%;
+    padding: 18px 0;
+    border-radius: 5px;
+}
+.table-row:nth-of-type(odd) {
+    background: #eeeeee;
+}
+
+.table-data,
+.header__item {
+    flex: 1 1 20%;
+    text-align: center;
+}
+
+.header__item {
+    text-transform: uppercase;
+}
+
+.filter__link {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+.filter__link::after {
+    content: "";
+    position: absolute;
+    right: -18px;
+    color: white;
+    font-size: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.filter__link.desc::after {
+    content: "(desc)";
+}
+.filter__link.asc::after {
+    content: "(asc)";
+}
+
+
+.inputBox {
+    margin: 3px;
+    padding:3px 3px 3px 2px;
+    outline: none;
+    border:none;
+    border-radius: 3px;
+}

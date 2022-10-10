@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ECart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <link href="src/resources/css/style.css" rel="stylesheet">
+    <link href="/dist/output.css" rel="stylesheet">
+
+</head>
+<body>
+<div id="app">
+
+    <nav class="nav">
+        <h2 class="navHeader">Shopify</h2>
+
+        <div class="navCart">
+            <button class="navButton" @click="showManageProducts = !showManageProducts">
+                <i class="fas fa-book iPlus" title="Manage Products"></i>
+            </button>
+            <div class="showProductDropdown" v-if="showManageProducts">
+
+                <div class="container">
+
+                    <div class="table">
+                        <div class="table-header">
+                            <div class="header__item"><p id="name" class="filter__link">Product Name</p></div>
+                            <div class="header__item"><p id="wins" class="filter__link filter__link--number">Product
+                                Description</p></div>
+                            <div class="header__item"><p id="draws" class="filter__link filter__link--number"></p></div>
+                            <div class="header__item"><p id="draws" class="filter__link filter__link--number"></p></div>
+                            <div class="header__item"><p id="losses" class="filter__link filter__link--number">Update
+                                Stock</p></div>
+                            <div class="header__item"><p id="total" class="filter__link filter__link--number">Delete
+                                Product</p></div>
+                        </div>
+                        <div class="table-content" v-for="product in products" :key="product.id">
+                            <form @submit.prevent="updateProduct(product)">
+                                <div class="table-row">
+                                    <div class="table-data">
+                                        <input class="inputBox" type="text" v-model="product.name">
+                                    </div>
+                                    <div class="table-data">
+                                        <input class="inputBox" type="text" v-model="product.description">
+                                    </div>
+                                    <div class="table-data"></div>
+                                    <div class="table-data"></div>
+
+                                    <div class="table-data">
+                                        <input class="inputBox" type="number" v-model="product.available">
+                                    </div>
+                                    <button class="hover:shadow-form rounded-md bg-[#6A64F1] py-1 px-2 text-base font-semibold text-white outline-none"
+                                            type="submit">Confirm Changes
+                                    </button>
+                                    <div class="table-data">
+                                        <button @click="deleteProduct(product)"><i class="fa-solid fa-x iBuy"
+                                                                                   title="Delete Product"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="table-data">
+                            <button class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none"
+                                    @click="refresh">Renew Product Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="navCart">
+            <button class="navButton" @click="showAddProduct = !showAddProduct">
+                <i class="fas fa-plus iPlus" title="Add Product"></i>
+            </button>
+            <div class="showProductDropdown" v-if="showAddProduct">
+
+                <form @submit.prevent="createProduct">
+                    <div class="mb-5">
+                        <label
+                                for="productName"
+                                class="mb-3 block text-base font-medium text-[#07074D]"
+                        >
+                            Product Name
+                        </label>
+                        <input
+                                type="text"
+                                name="productName"
+                                id="productName"
+                                placeholder="Product Name"
+                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                v-model="postProduct.productName"
+                        />
+                    </div>
+                    <div class="mb-5">
+                        <label
+                                for="productImage"
+                                class="mb-3 block text-base font-medium text-[#07074D]"
+                        >
+                            Product Image
+                        </label>
+                        <input
+                                type="text"
+                                name="productImage"
+                                id="productImage"
+                                placeholder="Product Image"
+                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                v-model="postProduct.productImage"
+                        />
+                    </div>
+                    <div class="mb-5">
+                        <label
+                                for="productAvailable"
+                                class="mb-3 block text-base font-medium text-[#07074D]"
+                        >
+                            Product Availability
+                        </label>
+                        <input
+                                type="number"
+                                name="productAvailable"
+                                id="productAvailable"
+                                placeholder="Product Availability"
+                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                v-model="postProduct.productAvailable"
+                        />
+                    </div>
+                    <div class="mb-5">
+                        <label
+                                for="productPrice"
+                                class="mb-3 block text-base font-medium text-[#07074D]"
+                        >
+                            Product Price
+                        </label>
+                        <input
+                                type="number"
+                                name="productPrice"
+                                id="productPrice"
+                                placeholder="Product Price"
+                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                v-model="postProduct.productPrice"
+                        />
+                    </div>
+                    <div class="mb-5">
+                        <label
+                                for="productVatRate"
+                                class="mb-3 block text-base font-medium text-[#07074D]"
+                        >
+                            Product Vat Rate
+                        </label>
+                        <input
+                                type="number"
+                                name="productVatRate"
+                                id="productVatRate"
+                                placeholder="Product Vat Rate"
+                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                v-model="postProduct.productVatRate"
+                        />
+                    </div>
+                    <div class="mb-5">
+                        <label
+                                for="productDescription"
+                                class="mb-3 block text-base font-medium text-[#07074D]"
+                        >
+                            Product Description
+                        </label>
+                        <input
+                                type="text"
+                                name="productDescription"
+                                id="productDescription"
+                                placeholder="Product Description"
+                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                v-model="postProduct.productDescription"
+                        />
+                    </div>
+                    <div>
+                        <button class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none"
+                                type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="navCart">
+            <button class="navButton" @click="showCart = !showCart">
+                <i class="fas fa-shopping-cart iCart" title="Shopping Cart"></i>
+            </button>
+            <span class="totalQuantity">{{ totalQuantity }}</span>
+            <div v-if="showCart" class="cartDropdown">
+
+                <h1>Checkout</h1>
+
+                <ul class="cartDropdownList">
+                    <li v-for="product in cartProducts" :key="product.id">
+                        <div>
+                            <p>{{ product.name }} Price Without PVN: {{ product.price.toFixed(2) }} Eur x {{product.quantity }}</p>
+                            <button @click="removeFromCart(product)"><i class="fa-solid fa-x iBuy"
+                                                                        title="Remove Product"></i></button>
+                        </div>
+
+                    </li>
+                </ul>
+                <div>
+                    <p class="total">Price: {{ subtotal.toFixed(2) }}Eur</p>
+                    <p>PVN: {{ pvn.toFixed(2) }}Eur</p>
+                    <p>Total: {{ (pvn + subtotal).toFixed(2) }}</p>
+                </div>
+                <div class="container">
+                    <button class="cartBuyButton" @click="buy((total+pvn).toFixed(2))">Buy</button>
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+
+
+    <section class="products">
+        <div v-for="product in products" :key="product.id" class="product">
+            <h3 class="productHeader">{{ product.name }}</h3>
+            <img
+                    :src="product.image"
+                    :alt="product.name"
+                    class="productImage"
+            >
+            <p class="productDescription">Available items: {{ product.available }} pcs</p>
+            <p class="productDescription">About Product: {{ product.description }}</p>
+            <p class="productDescription">Price: {{ product.price.toFixed(2) }}</p>
+            <div class="cart">
+                <button
+                        @click="updateCart(product, 'subtract')"
+                        class="cartButton"
+                >-
+                </button>
+                <span class="cartQuantity" v-model="product.quantity">{{ product.quantity }}</span>
+                <button
+                        @click="updateCart(product, 'add')"
+                        class="cartButton"
+                >+
+                </button>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="src/resources/js/main.js"></script>
+</body>
+</html>
