@@ -1,12 +1,10 @@
 <?php
 
 
-
-
 namespace Src\Repositories;
 
 
-
+use Exception;
 use Src\Interfaces\ProductInterface;
 use Src\Models\Cart;
 use Src\Services\Cart\CartServiceRequestCollection;
@@ -15,17 +13,15 @@ use Src\Services\MoneyServiceRequest;
 
 class CartRepository extends Database
 {
-
-    public function get()
+    public function showCart(): array
     {
+        $products = [];
         $sql = "SELECT * FROM cart";
         $stmt = $this->connect()->query($sql);
         $res = $stmt->fetchAll();
 
-        $products = [];
 
-        foreach ($res as $product){
-
+        foreach ($res as $product) {
             $products[] = new Cart(
                 $product['product_id'],
                 $product['name'],
@@ -42,7 +38,7 @@ class CartRepository extends Database
     }
 
 
-    public function addOrRemove(ProductInterface $product)
+    public function addOrRemove(ProductInterface $product): void
     {
         $sql = "SELECT * FROM cart WHERE product_id=?";
         $stmt = $this->connect()->prepare($sql);
@@ -50,7 +46,7 @@ class CartRepository extends Database
             $product->getId()
         ]);
 
-        if ($stmt->rowCount() != 0){
+        if ($stmt->rowCount() != 0) {
             $sql = "UPDATE cart SET quantity=? WHERE product_id=?";
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute([
@@ -65,7 +61,7 @@ class CartRepository extends Database
                 $product->getId()
             ]);
 
-        }else{
+        } else {
             $sql = "INSERT INTO cart(product_id, name, vatRate, vatPrice, price, euro, cents, available, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute([
@@ -90,7 +86,7 @@ class CartRepository extends Database
     }
 
 
-    public function moneyCount()
+    public function moneyCount(): MoneyServiceRequest
     {
         $subtotal = 0;
         $vatAmount = 0;
@@ -99,9 +95,9 @@ class CartRepository extends Database
         $stmt = $this->connect()->query($sql);
         $products = $stmt->fetchAll();
 
-        foreach ($products as $product){
+        foreach ($products as $product) {
 
-            if ($product['quantity'] > 0){
+            if ($product['quantity'] > 0) {
                 $subtotal += $product['price'];
                 $subtotal += $product['vatPrice'];
             }
@@ -110,13 +106,12 @@ class CartRepository extends Database
         return new MoneyServiceRequest($subtotal, $vatAmount);
     }
 
-    public function buyCart(CartServiceRequestCollection $cartServiceRequestCollection)
+
+    public function buyCart(CartServiceRequestCollection $cartServiceRequestCollection): void
     {
         $products = $cartServiceRequestCollection->getProducts();
-
-        foreach ($products as $product)
-        {
-            if(($product->getAvailable() - $product->getQuantity()) > 0){
+        foreach ($products as $product) {
+            if (($product->getAvailable() - $product->getQuantity()) > 0) {
                 $sql = "UPDATE products SET available=? , quantity=? WHERE id=?";
                 $stmt = $this->connect()->prepare($sql);
                 $stmt->execute([
@@ -127,10 +122,7 @@ class CartRepository extends Database
                 $sql = "TRUNCATE TABLE cart";
                 $stmt = $this->connect()->prepare($sql);
                 $stmt->execute();
-
-
             }
         }
     }
-
 }

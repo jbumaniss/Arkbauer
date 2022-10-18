@@ -237,7 +237,7 @@
                         class="cartButton"
                 >-
                 </button>
-                <span class="cartQuantity" v-model="product.quantity">{{ product.quantity }}</span>
+                <input class="cartQuantity" v-model="product.quantity">
                 <button
                         @click="updateCart(product, 'add')"
                         class="cartButton"

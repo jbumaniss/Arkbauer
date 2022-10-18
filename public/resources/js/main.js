@@ -3,7 +3,7 @@ const app = Vue.createApp({
         return {
             products: [],
             cartProducts: [],
-            total:  0,
+            total: 0,
             quantity: 0,
             showCart: false,
             showAddProduct: false,
@@ -19,18 +19,22 @@ const app = Vue.createApp({
         };
     },
     created() {
-      axios
-           .get("http://localhost:8000/products")
-            .then(response => (this.products = response.data));
+        axios
+            .get("http://localhost:8000/products")
+            .then(response => (this.products = response.data))
+            .catch(function (e) {
+                console.log(e)
+            });
 
 
-      axios
-          .get("http://localhost:8000/cart/products")
-          .then(response => (this.cartProducts = response.data));
+        axios
+            .get("http://localhost:8000/cart/products")
+            .then(response => (this.cartProducts = response.data))
+            .catch(function (e) {
+                console.log(e)
+            });
 
     },
-
-
 
     computed: {
 
@@ -41,26 +45,32 @@ const app = Vue.createApp({
             );
         },
 
-
         cartSubtotal() {
             axios
                 .get("http://localhost:8000/cart/subtotal")
                 .then(response => (this.subtotal = response.data))
-
+                .catch(function (e) {
+                    console.log(e)
+                });
         },
 
         cartVatAmount() {
             axios
                 .get("http://localhost:8000/cart/vatAmount")
                 .then(response => (this.vatAmount = response.data))
+                .catch(function (e) {
+                    console.log(e)
+                });
         },
 
         cartTotal() {
             axios
                 .get("http://localhost:8000/cart/total")
                 .then(response => (this.total = response.data))
+                .catch(function (e) {
+                    console.log(e)
+                });
         },
-
 
         pvn() {
             let sum = 0
@@ -86,27 +96,36 @@ const app = Vue.createApp({
         refresh() {
             location.reload();
         },
-       createProduct(e) {
-            axios.post("http://localhost:8000/addProduct", this.postProduct)
-
+        createProduct() {
+            axios.post("http://localhost:8000/create", this.postProduct).then(res => console.log(res))
+                .catch(function (e) {
+                    console.log(e)
+                });
             location.reload();
         },
         updateProduct(product) {
             axios.post("http://localhost:8000/update", product)
-
+                .catch(function (e) {
+                    console.log(e)
+                });
         },
         buy() {
             axios.post("http://localhost:8000/cart/buy", this.cartProducts)
+                .catch(function (e) {
+                    console.log(e)
+                });
             location.reload();
 
         },
         removeFromCart(product) {
             for (let i = 0; i < this.cartProducts.length; i++) {
                 if (this.cartProducts[i].id === product.id) {
-
                     if (this.cartProducts[i].quantity !== 0) {
                         this.cartProducts[i].quantity--;
-                        axios.post("http://localhost:8000/cart/removeProduct", product)
+                        axios.post("http://localhost:8000/cart/destroy", product)
+                            .catch(function (e) {
+                                console.log(e)
+                            });
                     }
                     break;
                 }
@@ -118,13 +137,19 @@ const app = Vue.createApp({
                     if (updateType === 'subtract') {
                         if (this.products[i].quantity !== 0) {
                             this.products[i].quantity--;
-                            axios.post("http://localhost:8000/cart/removeProduct", product)
+                            axios.post("http://localhost:8000/cart/destroy", product)
+                                .catch(function (e) {
+                                    console.log(e)
+                                });
                             location.reload();
                         }
                     } else {
                         if (this.products[i].available !== 0) {
                             this.products[i].quantity++;
-                            axios.post("http://localhost:8000/cart/addProduct", product)
+                            axios.post("http://localhost:8000/cart/create", product)
+                                .catch(function (e) {
+                                    console.log(e)
+                                });
                             location.reload();
                         }
                     }
@@ -134,8 +159,10 @@ const app = Vue.createApp({
         },
         deleteProduct(product) {
             axios.post("http://localhost:8000/destroy", product)
-
+                .catch(function (e) {
+                    console.log(e)
+                });
+            location.reload();
         }
     }
 }).mount('#app')
-

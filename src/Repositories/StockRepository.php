@@ -1,8 +1,6 @@
 <?php
 
 
-
-
 namespace Src\Repositories;
 
 
@@ -10,23 +8,19 @@ namespace Src\Repositories;
 use Src\Interfaces\ProductInterface;
 use Src\Models\Product;
 use Src\Services\MoneyServiceRequest;
-use Src\Services\Stock\UpdateServiceRequest;
+
 
 class StockRepository extends Database
 {
-
-    public function show(): array
+    public function showProducts(): array
     {
-        $defaultOrderQuantity = 0;
+        $products = [];
 
         $sql = "SELECT * FROM products";
         $stmt = $this->connect()->query($sql);
         $res = $stmt->fetchAll();
 
-        $products = [];
-
-        foreach ($res as $product){
-
+        foreach ($res as $product) {
             $products[] = new Product(
                 $product['id'],
                 $product['name'],
@@ -40,34 +34,32 @@ class StockRepository extends Database
                 $product['updatedAt'],
             );
         }
-
         return $products;
     }
 
 
-    public function save(ProductInterface $product): void
+    public function saveProduct(ProductInterface $product): void
     {
         $defaultOrderQuantity = 0;
 
-            $sql = "INSERT INTO products(name, image, vatrate, vatPrice, price, euro, cents, available, description, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $stmt = $this->connect()->prepare($sql);
-            $stmt->execute([
-                $product->getName(),
-                $product->getImage(),
-                $product->getVatRate(),
-                $product->getPrice()->getVatRate(),
-                $product->getPrice()->getPrice(),
-                $product->getPrice()->getEuros(),
-                $product->getPrice()->getCents(),
-                $product->getAvailable(),
-                $product->getDescription(),
-                $defaultOrderQuantity
-            ]);
+        $sql = "INSERT INTO products(name, image, vatrate, vatPrice, price, euro, cents, available, description, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([
+            $product->getName(),
+            $product->getImage(),
+            $product->getVatRate(),
+            $product->getPrice()->getVatRate(),
+            $product->getPrice()->getPrice(),
+            $product->getPrice()->getEuros(),
+            $product->getPrice()->getCents(),
+            $product->getAvailable(),
+            $product->getDescription(),
+            $defaultOrderQuantity
+        ]);
     }
 
 
-
-    public function updateProduct(UpdateServiceRequest $updateProductRequest)
+    public function updateProduct(ProductInterface $updateProductRequest): void
     {
         $sql = "UPDATE products SET name=?, available=?, description=?   WHERE id=?";
         $stmt = $this->connect()->prepare($sql);
@@ -79,7 +71,8 @@ class StockRepository extends Database
         ]);
     }
 
-    public function destroy(ProductInterface $product)
+
+    public function destroyProduct(ProductInterface $product): void
     {
         $sql = "DELETE FROM products WHERE id=?";
         $stmt = $this->connect()->prepare($sql);

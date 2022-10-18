@@ -1,6 +1,8 @@
 <?php
 
+
 namespace Src\Services\Stock;
+
 
 use Src\Interfaces\MoneyInterface;
 use Src\Interfaces\ProductInterface;
@@ -17,8 +19,7 @@ class StoreServiceRequest implements ProductInterface
     private string $description;
 
 
-
-    public function __construct(string $name, string $image, int $available, MoneyInterface $price, float $vatRate , string $description)
+    public function __construct(string $name, string $image, int $available, MoneyInterface $price, float $vatRate, string $description)
     {
         $this->name = $name;
         $this->available = $available;
@@ -62,7 +63,6 @@ class StoreServiceRequest implements ProductInterface
     {
         return $this->description;
     }
-
 
 
     public function setName(string $name): self

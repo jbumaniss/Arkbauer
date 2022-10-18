@@ -18,16 +18,19 @@ class StockService implements StockInterface
         $this->stockRepository = new StockRepository();
     }
 
+
     public function getProducts(): array
     {
-        return $this->stockRepository->show();
+        return $this->stockRepository->showProducts();
     }
+
 
     public function addProduct(ProductInterface $product): self
     {
-        $this->stockRepository->save($product);
+        $this->stockRepository->saveProduct($product);
         return $this;
     }
+
 
     public function updateProduct(ProductInterface $product): self
     {
@@ -35,10 +38,10 @@ class StockService implements StockInterface
         return $this;
     }
 
+
     public function removeProduct(ProductInterface $product): self
     {
-        $this->stockRepository->destroy($product);
+        $this->stockRepository->destroyProduct($product);
         return $this;
     }
-
 }

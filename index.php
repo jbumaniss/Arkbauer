@@ -17,18 +17,20 @@ $dotenv->load();
 
 $router = new Router();
 $router->get('/' , VueController::class . '::index');
-$router->get('/products' , StockController::class . '::products');
-$router->get('/cart' , CartController::class . '::show');
-$router->post('/addProduct' , StockController::class . '::store');
+
+$router->get('/products' , StockController::class . '::index');
+$router->post('/create' , StockController::class . '::store');
 $router->post('/update' , StockController::class . '::update');
 $router->post('/destroy' , StockController::class . '::destroy');
-$router->get('/cart/products' , CartController::class . '::show');
+
+
+$router->get('/cart/products' , CartController::class . '::index');
+$router->post('/cart/create' , CartController::class . '::store');
+$router->post('/cart/destroy' , CartController::class . '::destroy');
+
 $router->get('/cart/subtotal' , CartController::class . '::subtotal');
 $router->get('/cart/vatAmount' , CartController::class . '::vatAmount');
 $router->get('/cart/total' , CartController::class . '::total');
 $router->post('/cart/buy' , CartController::class . '::buy');
-$router->post('/cart/addProduct' , CartController::class . '::add');
-$router->post('/cart/removeProduct' , CartController::class . '::remove');
-$router->get('/cart' , CartController::class . '::show');
-$router->get('/cart/subtotal' , CartController::class . '::subtotal');
+
 $router->run();
