@@ -5,7 +5,7 @@
 
 ### Created app with PHP 8.0 / MySql 8.0 /Vue.js 3.x/Axios 1.1.2/ Font Awesome 6.20 /PHPUnit 9.5 /PHPDotEnv 5.4
 
-### Create Remove Update Delete, Cart App
+### Create Read Update Delete, Cart App
 
 
 -----
